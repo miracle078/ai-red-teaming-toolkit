@@ -1,6 +1,6 @@
 # Quick Demo Script for Interviews
 
-Use this script when demonstrating the AI Red-Teaming Toolkit to interviewers or on technical calls.
+Script to demonstrate the AI Red-Teaming Toolkit to interviewers or on technical calls.
 
 ---
 
