@@ -1,0 +1,266 @@
+# OWASP LLM Top 10 Taxonomy
+# Reference: https://owasp.org/www-project-top-10-for-large-language-model-applications/
+
+taxonomies:
+  - id: LLM01
+    name: Prompt Injection
+    category: Input Manipulation
+    severity: HIGH
+    description: "Manipulating LLMs via crafted inputs can lead to unauthorized access, data breaches, and compromised decision-making."
+    examples:
+      - Ignoring previous instructions
+      - Jailbreak attempts (DAN, AIM, etc.)
+      - Instruction hijacking
+      - Context confusion
+      - System prompt leaking
+    attack_vectors:
+      - Direct prompt injection
+      - Indirect injection via data sources
+      - Multi-turn conversation exploitation
+      - Delimiter confusion
+    impacts:
+      - Unauthorized data access
+      - Privilege escalation
+      - Social engineering
+      - Data exfiltration
+    mitigations:
+      - Input validation and sanitization
+      - Privilege control on LLM access
+      - Separate system and user contexts
+      - Output encoding
+      - Human oversight for sensitive operations
+
+  - id: LLM02
+    name: Insecure Output Handling
+    category: Output Security
+    severity: HIGH
+    description: "Insufficient validation of LLM outputs can lead to downstream security vulnerabilities."
+    examples:
+      - XSS through LLM-generated content
+      - SQL injection via generated queries
+      - Command injection in shell outputs
+      - SSRF through generated URLs
+    attack_vectors:
+      - Unvalidated output to web pages
+      - Direct execution of LLM-generated code
+      - Passing outputs to system commands
+    impacts:
+      - Remote code execution
+      - Privilege escalation
+      - Information disclosure
+      - System compromise
+    mitigations:
+      - Treat LLM as untrusted user
+      - Output validation and sanitization
+      - Appropriate encoding for context
+      - Least privilege principle
+      - Sandboxed execution environments
+
+  - id: LLM03
+    name: Training Data Poisoning
+    category: Data Integrity
+    severity: MEDIUM
+    description: "Manipulation of training data or fine-tuning process introduces vulnerabilities or biases."
+    examples:
+      - Backdoor triggers in training data
+      - Biased dataset injection
+      - Malicious fine-tuning examples
+      - Data source compromise
+    attack_vectors:
+      - Compromised training datasets
+      - Malicious contributions to open datasets
+      - Untrusted fine-tuning data
+    impacts:
+      - Model bias
+      - Backdoor activation
+      - Performance degradation
+      - Integrity compromise
+    mitigations:
+      - Verify training data sources
+      - Anomaly detection in datasets
+      - Sandboxed training environments
+      - Regular model validation
+      - Data provenance tracking
+
+  - id: LLM04
+    name: Model Denial of Service
+    category: Availability
+    severity: MEDIUM
+    description: "Resource-intensive operations cause service degradation or unavailability."
+    examples:
+      - Infinite loops in responses
+      - Computationally expensive queries
+      - High-frequency requests
+      - Context window overflow
+    attack_vectors:
+      - Resource exhaustion attacks
+      - Complex recursive queries
+      - Large context injection
+    impacts:
+      - Service unavailability
+      - Resource exhaustion
+      - Financial loss
+      - Degraded performance
+    mitigations:
+      - Rate limiting
+      - Input length restrictions
+      - Resource monitoring and limits
+      - Query complexity analysis
+      - Timeout mechanisms
+
+  - id: LLM05
+    name: Supply Chain Vulnerabilities
+    category: Supply Chain
+    severity: HIGH
+    description: "Vulnerabilities in the model supply chain including datasets, pre-trained models, and plugins."
+    examples:
+      - Compromised pre-trained models
+      - Malicious third-party plugins
+      - Untrusted datasets
+      - Dependency vulnerabilities
+    attack_vectors:
+      - Model marketplace compromises
+      - Malicious model packages
+      - Plugin injection
+    impacts:
+      - Backdoor introduction
+      - Data exfiltration
+      - Model compromise
+      - Supply chain attack
+    mitigations:
+      - Model provenance verification
+      - Plugin security reviews
+      - Dependency scanning
+      - Vendor risk assessment
+      - Code signing and verification
+
+  - id: LLM06
+    name: Sensitive Information Disclosure
+    category: Confidentiality
+    severity: HIGH
+    description: "Revealing sensitive data through model outputs, including training data leakage."
+    examples:
+      - Training data memorization
+      - PII disclosure
+      - API key exposure
+      - System prompt revelation
+      - Proprietary information leaks
+    attack_vectors:
+      - Targeted extraction queries
+      - Membership inference attacks
+      - Model inversion
+    impacts:
+      - Privacy breach
+      - Intellectual property loss
+      - Compliance violation
+      - Reputational damage
+    mitigations:
+      - Data sanitization in training
+      - Output filtering for sensitive patterns
+      - Access controls
+      - Regular security audits
+      - Data loss prevention tools
+
+  - id: LLM07
+    name: Insecure Plugin Design
+    category: Plugin Security
+    severity: MEDIUM
+    description: "LLM plugins with insufficient access control and input validation."
+    examples:
+      - Unvalidated plugin inputs
+      - Excessive plugin permissions
+      - Insecure plugin communication
+      - Plugin injection attacks
+    attack_vectors:
+      - Malicious plugin parameters
+      - Plugin chain exploitation
+      - Cross-plugin attacks
+    impacts:
+      - Unauthorized actions
+      - Data breaches
+      - Privilege escalation
+      - System compromise
+    mitigations:
+      - Plugin input validation
+      - Least privilege for plugins
+      - Plugin sandboxing
+      - Secure API design
+      - Plugin authentication and authorization
+
+  - id: LLM08
+    name: Excessive Agency
+    category: Authorization
+    severity: HIGH
+    description: "LLM granted too much autonomy enabling unintended harmful actions."
+    examples:
+      - Unrestricted function calling
+      - Unvalidated API access
+      - Autonomous decision-making
+      - Unchecked system modifications
+    attack_vectors:
+      - Exploitation of autonomous capabilities
+      - Function calling abuse
+      - API manipulation
+    impacts:
+      - Unauthorized transactions
+      - System damage
+      - Data manipulation
+      - Financial loss
+    mitigations:
+      - Human-in-the-loop for critical actions
+      - Action approval workflows
+      - Scope limitation
+      - Comprehensive audit logging
+      - Permission boundaries
+
+  - id: LLM09
+    name: Overreliance
+    category: Human Factors
+    severity: LOW
+    description: "Excessive dependence on LLM outputs without adequate oversight or validation."
+    examples:
+      - Accepting hallucinations as fact
+      - No human review of critical outputs
+      - Automated decision-making without validation
+      - Trusting model beyond its capabilities
+    attack_vectors:
+      - Exploiting user trust
+      - Hallucination manipulation
+      - Confidence exploitation
+    impacts:
+      - Misinformation propagation
+      - Poor decision-making
+      - Legal liability
+      - Operational errors
+    mitigations:
+      - Human oversight requirements
+      - Output verification processes
+      - Confidence scoring
+      - Multiple source validation
+      - Clear capability communication
+
+  - id: LLM10
+    name: Model Theft
+    category: Intellectual Property
+    severity: MEDIUM
+    description: "Unauthorized access to or replication of proprietary model details."
+    examples:
+      - Model extraction via API
+      - Weight stealing
+      - Architecture inference
+      - Training data reconstruction
+    attack_vectors:
+      - API query-based extraction
+      - Side-channel attacks
+      - Model inversion
+    impacts:
+      - Intellectual property loss
+      - Competitive disadvantage
+      - Cloning attacks
+      - Economic damage
+    mitigations:
+      - API rate limiting
+      - Model watermarking
+      - Access controls
+      - Query monitoring
+      - Output obfuscation

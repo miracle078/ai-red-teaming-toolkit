@@ -1,0 +1,311 @@
+# MITRE ATLAS Framework Mapping
+# Adversarial Threat Landscape for Artificial-Intelligence Systems
+# Reference: https://atlas.mitre.org/
+
+mitre_atlas:
+  tactics:
+    - id: reconnaissance
+      name: Reconnaissance
+      description: "Gather information about the target ML system to plan future attacks"
+      techniques:
+        - id: AML.T0002
+          name: Discover ML Model Family
+          description: "Identify the type and family of ML model being used"
+          examples:
+            - API probing to determine model type
+            - Analyzing model behavior patterns
+            - Version fingerprinting
+          
+        - id: AML.T0003
+          name: Discover Model Ontology
+          description: "Understand the model's input/output structure and capabilities"
+          examples:
+            - Testing input formats
+            - Exploring API endpoints
+            - Capability enumeration
+          
+        - id: AML.T0004
+          name: Discover Training Data
+          description: "Infer characteristics of training data"
+          examples:
+            - Membership inference attacks
+            - Training data extraction
+            - Dataset reconstruction
+
+    - id: resource_development
+      name: Resource Development
+      description: "Establish resources to support attacks against ML systems"
+      techniques:
+        - id: AML.T0005
+          name: Acquire Adversarial ML Attack Tools
+          description: "Obtain tools for generating adversarial examples"
+          examples:
+            - CleverHans, Foolbox, ART
+            - Custom jailbreak generators
+            - Injection testing frameworks
+          
+        - id: AML.T0006
+          name: Create Adversarial Data
+          description: "Generate adversarial examples to attack the model"
+          examples:
+            - Crafted jailbreak prompts
+            - Adversarial input generation
+            - Poisoned training samples
+
+    - id: initial_access
+      name: Initial Access
+      description: "Gain initial access to the ML system or its components"
+      techniques:
+        - id: AML.T0010
+          name: ML Supply Chain Compromise
+          description: "Compromise model supply chain (datasets, pre-trained models, plugins)"
+          examples:
+            - Poisoned pre-trained models
+            - Malicious plugins
+            - Compromised datasets
+          
+        - id: AML.T0011
+          name: Backdoor ML Model
+          description: "Insert backdoors during training or fine-tuning"
+          examples:
+            - Trigger-based backdoors
+            - Data poisoning
+            - Model tampering
+          
+        - id: AML.T0051
+          name: LLM Prompt Injection
+          description: "Inject malicious instructions via prompts"
+          examples:
+            - Direct prompt injection
+            - Indirect injection via data
+            - Context hijacking
+
+    - id: execution
+      name: Execution
+      description: "Execute malicious code or queries on the target system"
+      techniques:
+        - id: AML.T0052
+          name: Command Injection via LLM
+          description: "Execute commands through LLM outputs"
+          examples:
+            - Shell command injection
+            - API call injection
+            - Function calling exploitation
+          
+        - id: AML.T0015
+          name: Execute Unauthorized ML Inference
+          description: "Perform unauthorized inference operations"
+          examples:
+            - API abuse
+            - Unauthorized model queries
+            - Resource exploitation
+
+    - id: persistence
+      name: Persistence
+      description: "Maintain presence in the ML system"
+      techniques:
+        - id: AML.T0020
+          name: Backdoor ML Model
+          description: "Maintain persistent backdoor in model"
+          examples:
+            - Training-time backdoors
+            - Fine-tuning injection
+            - Persistent triggers
+          
+        - id: AML.T0021
+          name: Poison Training Data
+          description: "Persistently affect model through poisoned data"
+          examples:
+            - Dataset poisoning
+            - Continuous injection
+            - Incremental poisoning
+
+    - id: privilege_escalation
+      name: Privilege Escalation
+      description: "Gain higher-level permissions in the system"
+      techniques:
+        - id: AML.T0053
+          name: Exploit Excessive Agency
+          description: "Abuse LLM's excessive permissions"
+          examples:
+            - Function calling exploitation
+            - Plugin permission abuse
+            - API escalation
+          
+        - id: AML.T0025
+          name: Bypass Access Controls
+          description: "Circumvent ML system access controls"
+          examples:
+            - Jailbreak attacks
+            - Authorization bypass
+            - Context confusion
+
+    - id: defense_evasion
+      name: Defense Evasion
+      description: "Avoid detection by security controls"
+      techniques:
+        - id: AML.T0030
+          name: Adversarial Examples
+          description: "Craft inputs that evade detection"
+          examples:
+            - Encoded payloads
+            - Obfuscated injections
+            - Translation-based bypasses
+          
+        - id: AML.T0031
+          name: Obfuscate Adversarial Data
+          description: "Hide malicious intent in inputs"
+          examples:
+            - Base64 encoding
+            - Character substitution
+            - Semantic obfuscation
+          
+        - id: AML.T0032
+          name: Evade ML Model
+          description: "Bypass ML-based security controls"
+          examples:
+            - Content filter evasion
+            - Safety classifier bypass
+            - Detection model evasion
+
+    - id: credential_access
+      name: Credential Access
+      description: "Steal credentials or authentication materials"
+      techniques:
+        - id: AML.T0054
+          name: Extract API Keys
+          description: "Obtain API keys or tokens from LLM"
+          examples:
+            - System prompt leaking
+            - Configuration disclosure
+            - Memory extraction
+
+    - id: discovery
+      name: Discovery
+      description: "Gather information about the ML system's environment"
+      techniques:
+        - id: AML.T0035
+          name: Discover ML Model
+          description: "Identify model architecture and parameters"
+          examples:
+            - Model fingerprinting
+            - Architecture inference
+            - Capability mapping
+
+    - id: collection
+      name: Collection
+      description: "Gather data of interest from the ML system"
+      techniques:
+        - id: AML.T0040
+          name: Infer Training Data
+          description: "Extract information about training data"
+          examples:
+            - Membership inference
+            - Training data extraction
+            - Data reconstruction
+
+    - id: exfiltration
+      name: Exfiltration
+      description: "Steal data or model information"
+      techniques:
+        - id: AML.T0043
+          name: Extract ML Model
+          description: "Steal the ML model or its parameters"
+          examples:
+            - Model extraction attacks
+            - Weight stealing
+            - Architecture extraction
+          
+        - id: AML.T0055
+          name: Exfiltrate via LLM Output
+          description: "Extract sensitive data through LLM responses"
+          examples:
+            - Training data leakage
+            - Sensitive information disclosure
+            - PII extraction
+          
+        - id: AML.T0044
+          name: Infer Training Data Membership
+          description: "Determine if specific data was in training set"
+          examples:
+            - Membership inference attacks
+            - Privacy violation
+            - Data exposure
+
+    - id: impact
+      name: Impact
+      description: "Disrupt, manipulate, or destroy ML systems"
+      techniques:
+        - id: AML.T0045
+          name: Deny ML Service
+          description: "Make ML service unavailable"
+          examples:
+            - Resource exhaustion
+            - Infinite loops
+            - DoS attacks
+          
+        - id: AML.T0046
+          name: Erode ML Model Integrity
+          description: "Degrade model performance or accuracy"
+          examples:
+            - Data poisoning
+            - Adversarial attacks
+            - Model corruption
+          
+        - id: AML.T0047
+          name: Manipulate ML Model Output
+          description: "Control or influence model outputs"
+          examples:
+            - Jailbreak attacks
+            - Prompt injection
+            - Output manipulation
+
+# Mapping to Common Attack Types
+attack_type_mappings:
+  prompt_injection:
+    tactics:
+      - initial_access
+      - execution
+    techniques:
+      - AML.T0051  # LLM Prompt Injection
+      - AML.T0052  # Command Injection via LLM
+  
+  jailbreak:
+    tactics:
+      - defense_evasion
+      - privilege_escalation
+    techniques:
+      - AML.T0025  # Bypass Access Controls
+      - AML.T0030  # Adversarial Examples
+  
+  model_extraction:
+    tactics:
+      - collection
+      - exfiltration
+    techniques:
+      - AML.T0043  # Extract ML Model
+      - AML.T0040  # Infer Training Data
+  
+  data_poisoning:
+    tactics:
+      - initial_access
+      - persistence
+      - impact
+    techniques:
+      - AML.T0021  # Poison Training Data
+      - AML.T0046  # Erode ML Model Integrity
+  
+  denial_of_service:
+    tactics:
+      - impact
+    techniques:
+      - AML.T0045  # Deny ML Service
+  
+  information_disclosure:
+    tactics:
+      - collection
+      - exfiltration
+    techniques:
+      - AML.T0055  # Exfiltrate via LLM Output
+      - AML.T0040  # Infer Training Data
+      - AML.T0054  # Extract API Keys
